@@ -1,24 +1,35 @@
-import { css } from '@emotion/core'
-import React from 'react'
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import { FormControl, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
 
-export default function FormField(props: {}) => {
+interface FormFieldProps<T extends FieldValues> {
+  label: string;
+  control: Control<T>;
+  name: Path<T>;
+  placeholder?: string;
+  type?: "text" | "email" | "password" | "file";
+}
+
+export default function PrepFormField<T extends FieldValues>({
+  control,
+  name,
+  label,
+  placeholder,
+  type = "text",
+}: FormFieldProps<T>) {
   return (
-    <FormField
-      control={form.control}
-      name="username"
+    <Controller
+      control={control}
+      name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Username</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder="shadcn" {...field} />
+            <Input placeholder={placeholder} type={type} {...field} />
           </FormControl>
-          <FormDescription>
-            This is your public display name.
-          </FormDescription>
           <FormMessage />
         </FormItem>
       )}
     />
-
-  )
+  );
 }
