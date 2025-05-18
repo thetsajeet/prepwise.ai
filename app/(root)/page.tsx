@@ -33,7 +33,6 @@ export default function Home() {
           {dummyInterviews.map((interview) => (
             <InterviewCard key={interview.id} {...interview} />
           ))}
-          <p>You have&apos;t taken any interviews yet</p>
         </div>
       </section>
 
